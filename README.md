@@ -1,0 +1,183 @@
+<h1 align="center">PojavLauncher (a.k.a. Pojav Reborn)</h1>
+
+<a href="./README_RU.md">Readme на русском</a>
+
+<a href="./README_BN.md">Readme বাংলা ভাষায়</a>
+
+<img src="https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/app_pojavlauncher/src/main/assets/pojavlauncher.png" align="left" width="130" height="150" alt="PojavLauncher logo">
+
+[![Android CI](https://github.com/TeamPojavLauncher/PojavLauncher/workflows/Android%20CI/badge.svg)](https://github.com/TeamPojavLauncher/PojavLauncher/actions)
+[![Github commit activity](https://img.shields.io/github/commit-activity/m/TeamPojavLauncher/PojavLauncher.svg?style=flat)](https://github.com/TeamPojavLauncher/PojavLauncher/graphs/commit-activity)
+[![Crowdin](https://badges.crowdin.net/pojavlauncher/localized.svg)](https://crowdin.com/project/pojavlauncher)
+[![Discord](https://img.shields.io/discord/1355213558631366897?color=5865F2&logo=discord&logoColor=white&label=&style=flat)](https://discord.gg/2HYpzs4gZT)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue)](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
+[![Twitter Follow](https://img.shields.io/twitter/follow/PLaunchTeam.svg?style=social)](https://x.com/PLaunchTeam)
+
+*From [Boardwalk](https://github.com/zhuowei/Boardwalk)'s ashes here comes PojavLauncher!*
+
+PojavLauncher is a launcher that allows you to play Minecraft: Java Edition on your Android and [iOS](https://github.com/PojavLauncherTeam/PojavLauncher_iOS) devices.
+
+For more details, check out our [wiki](https://pojavlauncher.app/)!
+
+> [!IMPORTANT]
+> This is not the original PojavLauncher. This project is based on [MojoLauncher](https://github.com/MojoLauncher/MojoLauncher). For more details, please see [DISCLAIMER.md](DISCLAIMER.md).
+
+## Table of Contents
+
+* [Introduction](#introduction)
+* [Getting PojavLauncher](#getting-pojavlauncher)
+* [Building](#building)
+    * [Quick Build (Recommended)](#quick-build-recommended)
+    * [Detailed Build](#detailed-build)
+* [Current Roadmap](#current-roadmap)
+* [Known Issues](#known-issues)
+* [FAQ](#faq)
+* [Contributing](#contributing)
+* [Support](#support)
+* [License](#license)
+* [Credits & Dependencies](#credits--dependencies)
+* [Roadmap](#roadmap)
+
+## Introduction
+
+* PojavLauncher is a Minecraft: Java Edition launcher for Android and iOS based on [Boardwalk](https://github.com/zhuowei/Boardwalk)
+* This launcher can launch almost all available Minecraft versions ranging from rd-132211 to 26.x snapshots (including Combat Test versions)
+* Modding via Forge and Fabric are also supported.
+* This repository contains source code for Android. For iOS/iPadOS, check out [PojavLauncher_iOS](https://github.com/PojavLauncherTeam/PojavLauncher_iOS).
+
+## Getting PojavLauncher
+
+You can get PojavLauncher via five methods:
+
+1. **Releases:** Download the latest release.apk from our [stable releases](https://github.com/TeamPojavLauncher/PojavLauncher/releases).
+2. **Google Play (Deprecated):** Get it from Google Play by clicking on this badge: [![Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=net.kdt.pojavlaunch)
+3. **Nightly.link:** Get the latest pre-built app from [nightly.link](https://nightly.link/TeamPojavLauncher/PojavLauncher/workflows/android/v3_openjdk?preview)
+4. **Automated builds:** Download the latest debug.apk from [automatic builds](https://github.com/TeamPojavLauncher/PojavLauncher/actions).
+5. **Build from Source:** Follow the [building instructions](#building) below.
+
+## Building
+
+### Quick Build (Recommended)
+
+The easiest way to build PojavLauncher is to use the pre-built JREs provided by our CI.
+
+1. Clone the repository: `git clone https://github.com/TeamPojavLauncher/PojavLauncher.git`
+2. Build the launcher: `./gradlew :app_pojavlauncher:assembleDebug` (Use `gradlew.bat` on Windows)
+
+The built APK will be located in `app_pojavlauncher/build/outputs/apk/debug/`.
+
+### Detailed Build
+
+If you need more control over the build process, follow these steps:
+
+1. **Java Runtime Environment (JRE):** Download the `jre8-pojav` artifact from our [CI auto builds](https://github.com/MojoLauncher/android-openjdk-build-multiarch/actions).  This package contains pre-built JREs for all supported architectures.  If you need to build the JRE yourself, follow the instructions in the [android-openjdk-build-multiarch](https://github.com/MojoLauncher/android-openjdk-build-multiarch) repository.
+
+2. **LWJGL:** The build instructions for the custom LWJGL are available over the [LWJGL repository](https://github.com/MojoLauncher/lwjgl3).
+
+3. **Language List:** Because languages are auto-added by Crowdin, you need to run the language list generator before building. In the project directory, run:
+   * Linux/macOS:
+     ```bash
+     chmod +x scripts/languagelist_updater.sh
+     bash scripts/languagelist_updater.sh
+     ```
+   * Windows:
+     ```batch
+     scripts\languagelist_updater.bat
+     ```
+
+4. **Build GLFW stub:** `./gradlew :jre_lwjgl3glfw:build`
+
+5. **Build the launcher:** `./gradlew :app_pojavlauncher:assembleDebug`
+   * If you are building on Windows:
+     * Replace `./gradlew` with `.\gradlew.bat`
+     * Make sure `mojoexec`, `sdl`, `glfw` are symlinked into `app_pojavlauncher/src/main/jni/`
+
+## Current Roadmap
+
+- [x] OpenJDK 8 Mobile port: ARM32, ARM64, x86, x86_64
+- [x] OpenJDK 17 Mobile port: ARM32, ARM64, x86, x86_64
+- [x] OpenJDK 21 Mobile port: ARM32, ARM64, x86, x86_64
+- [x] Headless mod installer
+- [x] Mod installer with GUI
+- [x] OpenGL in OpenJDK environment
+- [x] OpenAL (works on most devices)
+- [x] Support for Minecraft 1.12.2 and below
+- [x] Support for Minecraft 1.13 and above
+- [x] Support for Minecraft 1.17 (22w13a) and above
+- [x] Game surface zooming
+- [x] New input pipe rewritten to native code
+- [x] Rewritten entire controls system
+- [x] Instance system in favor of profiles
+- [x] Out-of-the-box 1.21.5 support
+- [x] mrpack/CurseForge zip import
+- [x] LTW: enable compute shader/image extensions
+- [ ] LTW: resolve issues with Create
+- [ ] LTW: switch to a color-renderable format for framebuffers
+- [ ] Add [MobileGL](https://github.com/MobileGL-Dev/MobileGL) for Mali devices
+- [ ] Modpack/mod management tool
+- [ ] MMC-compatible instance import
+- [ ] Vintage Story support
+- [ ] Implement common native library standard
+- [ ] Patch-on-dlopen for mod native libraries
+- [ ] More to come!
+
+## Known Issues
+
+See our [issue tracker](https://github.com/TeamPojavLauncher/PojavLauncher/issues) for a list of known issues and their current status.
+
+## FAQ
+
+See our [wiki](https://pojav.ru/) for more information. (Currently an outdated wiki.) 
+
+## Contributing
+
+Contributions are welcome! We welcome any type of contribution, not only code. For example, you can help improve the [wiki](https://pojavlauncherteam.github.io/), contribute to the [translations](https://crowdin.com/project/pojavlauncher), or submit bug reports and feature requests.
+
+Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it.
+
+## Support
+
+For support, please join our [Discord server](https://discord.gg/2HYpzs4gZT).
+
+## License
+
+PojavLauncher is licensed under [GNU LGPLv3](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE).
+
+## Credits & Dependencies
+
+- [Boardwalk](https://github.com/zhuowei/Boardwalk) (JVM Launcher): Unknown License / [Apache License 2.0](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE) or [GNU GPLv2](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE)
+- [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher): [GNU LGPLv3 License](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
+- [MojoLauncher](https://github.com/MojoLauncher/MojoLauncher): [GNU LGPLv3 License](https://github.com/MojoLauncher/MojoLauncher/blob/v3_openjdk/LICENSE)
+- [Amethyst](https://github.com/AngelAuraMC/Amethyst-Android): [GNU LGPLv3 License](https://github.com/AngelAuraMC/Amethyst-Android/blob/v3_openjdk/LICENSE)
+- Android Support Libraries: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt)
+- [OpenJDK](https://github.com/PojavLauncherTeam/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html)
+- [GL4ES](https://github.com/PojavLauncherTeam/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE)
+- [Holy GL4ES](https://github.com/PojavLauncherTeam/holy-gl4es): [MIT License](https://github.com/PojavLauncherTeam/holy-gl4es/blob/main/LICENSE)
+- [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues): [LGPL-2.1 License](https://github.com/MobileGL-Dev/MobileGlues/blob/dev-es/LICENSE)
+- [Krypton Wrapper](https://github.com/BZLZHH/NG-GL4ES): [MIT License](https://github.com/BZLZHH/NG-GL4ES/blob/main/LICENSE)
+- [SimpleFPEWrapper](https://github.com/MobileGL-Dev/SimpleFPEWrapper): [GNU LGPLv3 License](https://github.com/MobileGL-Dev/SimpleFPEWrapper/blob/main/LICENSE)
+- [Mesa 3D Graphics Library](https://gitlab.freedesktop.org/mesa/mesa): [MIT License](https://docs.mesa3d.org/license.html)
+- [LWJGL3](https://github.com/MojoLauncher/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md)
+- [GLFW](https://github.com/MojoLauncher/glfw): [zlib license](https://github.com/MojoLauncher/glfw/blob/glfw34/LICENSE.md)
+- [SDL](https://github.com/MojoLauncher/MojoSDL): [zlib license](https://github.com/MojoLauncher/MojoSDL/blob/main/LICENSE.txt)
+- [LWJGL2-GLFW](https://github.com/MojoLauncher/lwjgl2-glfw): 3-Clause BSD license
+- [mojoexec](https://github.com/MojoLauncher/mojoexec): [MIT License](https://github.com/MojoLauncher/mojoexec/blob/master/LICENSE)
+- [pro-grade](https://github.com/pro-grade/pro-grade) (Java sandboxing security manager): [Apache License 2.0](https://github.com/pro-grade/pro-grade/blob/master/LICENSE.txt)
+- [bhook](https://github.com/bytedance/bhook) (Exit code trapping): [MIT License](https://github.com/bytedance/bhook/blob/main/LICENSE)
+- [Authlib-Injector](https://github.com/yushijinhun/authlib-injector) (Authorization via ely.by): [AGPL-3.0](https://github.com/yushijinhun/authlib-injector/blob/develop/LICENSE)
+- [OpenAL-Soft](https://github.com/kcat/openal-soft): [GNU LIBRARY GENERAL PUBLIC LICENSE](https://github.com/kcat/openal-soft/blob/master/COPYING) and [modified PFFFT](https://github.com/kcat/openal-soft/blob/master/LICENSE-pffft)
+- [oboe](https://github.com/google/oboe): [Apache License 2.0](https://github.com/google/oboe/blob/main/LICENSE)
+- Thanks to [Mineskin](https://mineskin.eu/) and [MCHeads](https://mc-heads.net) for providing Minecraft avatars
+
+## Roadmap
+
+We are currently focusing on:
+
+* Exploring new rendering technologies.
+
+Future plans include:
+
+* Improving stability and performance.
+* Enhancing the mod installation experience.
+
+We welcome community feedback and suggestions for our roadmap. Please feel free to open a feature request in our [issue tracker](https://github.com/TeamPojavLauncher/PojavLauncher/issues).

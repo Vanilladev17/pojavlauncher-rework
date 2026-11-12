@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Не зависящие от темы цвета -->
+    <color name="control_button_color">#4CC4C4C4</color>
+    <color name="control_button_pressed_color">#4D000000</color>
+
+    <color name="minebutton_color">#57CC33</color>
+    <color name="minebutton_secondary">#2a2a2a</color>
+
+    <!-- Палитра: светлая (по умолчанию для MODE_NIGHT_NO) -->
+    <color name="background_app">#F4F5F7</color>
+    <color name="divider">@color/background_overlay</color>
+    <color name="background_overlay">#D3D7DD</color>
+    <color name="background_status_bar">#E6E8EB</color>
+    <color name="background_bottom_bar">#ECEEF1</color>
+    <color name="icon_outline_color">#FFFFFF</color>
+
+    <color name="primary_text">#111418</color>
+    <color name="secondary_text">#5B6169</color>
+    <color name="error_text">#C62828</color>
+</resources>
